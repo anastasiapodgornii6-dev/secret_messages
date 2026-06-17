@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secret Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400..700;1,400..700&family=Borel&family=Dancing+Script:wght@400..700&family=Fredoka:wght@300..700&family=Oleo+Script:wght@400;700&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+   body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0e0e19;
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 20px;
+}
+
+    .box {
+  text-align: center;
+  width: 90%;
+  max-width: 320px;
+}
+
+    input {
+  padding: 14px;
+  width: 100%;
+  max-width: 200px;
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+    button {
+  margin-top: 10px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #6c5ce7;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+    .result {
+      margin-top: 20px;
+      font-size: 25px;
+    font-family: "Dancing Script", cursive;
+
+      min-height: 40px;
+    }
+
+    .hint {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  font-family: "Arial", cursive;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255,255,255,0.15);
+}
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <div class="hint">Introdu codul pentru a primi mesajul secret...</div>
+
+  <input id="code" placeholder="••••" maxlength="4">
+  <br>
+  <button onclick="unlock()">Deblochează</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  const data = {
+    "4821": "Nu vei fi niciodată 100% pregătit(ă).",
+    "9056": "Începutul e partea pe care o eviți cel mai mult.",
+    "1134": "Dacă te tot întorci la un gând, probabil contează.",
+    "7781": "Unele șanse nu se repetă în aceeași formă.",
+    "2468": "Dacă simți că trebuie să faci ceva, probabil ai dreptate.",
+    "3902": "Nu toate lucrurile bune se lasă așteptate.",
+    "6610": "Există momente care trec o singură dată.",
+    "8455": "„Mai târziu” devine uneori „niciodată”.",
+    "5209": "Curajul apare după ce începi, nu înainte.",
+    "7316": "Uneori trebuie să alegi fără garanții.",
+    "9081": "Nu toate ezitările sunt sigure.",
+    "1177": "Dacă te oprești, rămâi în același loc.",
+    "6633": "Mișcarea schimbă tot, chiar dacă pare mică.",
+    "4408": "Nu toți oamenii rămân, dar unii contează chiar și puțin timp.",
+    "9912": "Ce simți tu nu e mereu ce vede celălalt.",
+    "8449": "Oamenii arată mai puțin decât simt.",
+    "4522": "Nu toate conexiunile pot fi explicate.",
+    "2586": "Unele relații nu se termină, doar se schimbă.",
+    "8546": "Nu toată lumea îți va arăta importanța ta.",
+    "6754": "Direcția contează mai mult decât viteza.",
+    "5575": "Oamenii revin în gânduri, nu neapărat în viață.",
+    "7855": "Nu ești aceeași persoană care erai acum un an.",
+    "0245": "Te subestimezi mai des decât ar trebui.",
+    "0086": "Ai mai mult control decât crezi.",
+    "5410": "Te complici uneori inutil.",
+    "8655": "Te analizezi prea dur.",
+    "5875": "Ești deja „în proces”, chiar dacă nu simți.",
+    "9869": "Gândurile tale nu sunt întotdeauna realitatea.",
+    "3311": "Nu tot ce e neclar este negativ.",
+    "7740": "Uneori trebuie doar să continui.",
+    "9901": "Nu toate răspunsurile sunt urgente.",
+    "1029": "Ai trecut deja peste lucruri mai grele decât crezi.",
+    "6602": "Schimbarea apare fără să o anunțe.",
+    "2188": "Nu tot ce pierzi era pentru tine.",
+    "4433": "Ai deja începutul a ceva important în tine.",
+    "5190": "Nu ai nevoie de validare ca să mergi mai departe.",
+    "7722": "Unele decizii se simt înainte să fie înțelese.",
+    "8401": "Nu tot ce pare greu chiar te oprește.",
+    "3944": "Ești mai rezistent(ă) decât crezi.",
+    "6509": "Nu trebuie să înțelegi tot acum.",
+    "1180": "Uneori liniștea înseamnă răspuns.",
+    "9033": "Nu totul trebuie controlat.",
+    "4820": "Unele lucruri se așază în timp.",
+    "7007": "Ai mai multă claritate decât îți dai seama.",
+    "3149": "Nu ești în urmă, ești în proces.",
+    "6001": "Ce e pentru tine nu se pierde ușor."
+  };
+
+  function unlock() {
+    const code = document.getElementById("code").value;
+    const result = document.getElementById("result");
+
+    if (data[code]) {
+      result.innerText = data[code];
+    } else {
+      result.innerText = "";
+    }
+  }
+</script>
+
+</body>
+</html>
